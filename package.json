@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,6 +23,8 @@
     "@angular/router": "^4.2.4",
     "core-js": "^2.4.1",
     "express": "^4.15.4",
+    "lodash": "^4.17.4",
+    "nodemon": "^1.11.0",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },
@@ -32,6 +34,7 @@
     "@angular/language-service": "^4.2.4",
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
+    "@types/lodash": "^4.14.74",
     "@types/node": "~6.0.60",
     "codelyzer": "~3.1.1",
     "jasmine-core": "~2.6.2",
