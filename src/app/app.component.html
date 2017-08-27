@@ -4,29 +4,75 @@
     consideration. please be sure that the lecture and the group are matching or they can be different
   </div>
   <div class="row">
-    <div class="col-sm">
-      <select class="custom-select" (change)="addCourse($event.target.value)">
+    <div class="col-sm text-center">
+      <select class="custom-select" (change)="showTime($event.target.value)">
         <option> Please Select a Course... </option>
-        <option *ngFor="let course of uniqueCourses">{{course}}</option>
+        <option *ngFor="let course of uniqueCourses" [id]="course.id">{{course}}</option>
 
       </select>
     </div>
 
-    <div class="col-sm" *ngIf="didSelectCourse">
-      <select class="custom-select">
+    <div class="col-sm text-center" *ngIf="didSelectCourse">
+      <select class="custom-select" (change)="selectLecture($event)">
         <option> Please Choose a Lecture... </option>  
-        <option *ngFor="let lecture of currentCoursesLectures">{{lecture.day}} - {{lecture.from}} / {{lecture.to}} - group {{lecture.group}}</option>
+        <option *ngFor="let lecture of currentCourseLectures" [id]="lecture.id">{{lecture.day}} - {{lecture.from}} / {{lecture.to}} - group {{lecture.group}}</option>
       </select>
     </div>
 
-    <div class="col-sm" *ngIf="didSelectCourse">
-      <select class="custom-select">
+    <div class="col-sm text-center" *ngIf="didSelectCourse">
+      <select class="custom-select" (change)="selectTutorial($event)">
         <option> Please Select a Tutorial... </option>
-        <option *ngFor="let tutorial of currentCoursesTutorials">{{tutorial.day}} - {{tutorial.from}} / {{tutorial.to}} - group {{tutorial.group}}</option>
+        <option *ngFor="let tutorial of currentCourseTutorials" [id]="tutorial.id">{{tutorial.day}} - {{tutorial.from}} / {{tutorial.to}} - group {{tutorial.group}}</option>
       </select>
     </div>
   </div>
+  <div class="col-md-12 text-center" style="margin-top:15px;">
+    <button class="btn btn-primary" (click)="addCourse()">ADD</button>
+  </div>
   <div class="row">
-    input
+    <div class="col-sm text-center">Saturday</div>
+    <div class="col-sm text-center">Sunday</div>
+    <div class="col-sm text-center">Monday</div>
+    <div class="col-sm text-center">Tuesday</div>
+    <div class="col-sm text-center">Wednesday</div>
+    <div class="col-sm text-center">Thursday</div>
+  </div>
+  <div class="row">
+    <div class="col-sm text-center">
+      <span *ngFor="let course of saturday">
+        {{course.code}} - {{course.type}}
+        <br>
+      </span>
+    </div>
+    <div class="col-sm text-center">
+      <span *ngFor="let course of sunday">
+        {{course.code}} - {{course.type}}
+        <br>
+      </span>
+    </div>
+    <div class="col-sm text-center">
+      <span *ngFor="let course of monday">
+        {{course.code}} - {{course.type}}
+        <br>
+      </span>
+    </div>
+    <div class="col-sm text-center">
+      <span *ngFor="let course of tuesday">
+        {{course.code}} - {{course.type}}
+        <br>
+      </span>
+    </div>
+    <div class="col-sm text-center">
+      <span *ngFor="let course of wednesday">
+        {{course.code}} - {{course.type}}
+        <br>
+      </span>
+    </div>
+    <div class="col-sm text-center">
+      <span *ngFor="let course of thursday">
+        {{course.code}} - {{course.type}}
+        <br>
+      </span>
+    </div>
   </div>
 </div>

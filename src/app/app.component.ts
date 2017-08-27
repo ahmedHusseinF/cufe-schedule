@@ -14,32 +14,81 @@ export class AppComponent implements OnInit {
   sameCourses: any[] // this contains lectures and tutorials of the same subject
   coursesGroupedByCode: any[] = []
   currentCourses: Course[]
-  currentCoursesLectures: Course[]
-  currentCoursesTutorials: Course[]
+  currentCourseLectures: Course[]
+  currentCourseTutorials: Course[]
+  selectedCourseLecture: any
+  selectedCourseTutorial: any
+
+  saturday: Course[] = []
+  sunday: Course[] = []
+  monday: Course[] = []
+  tuesday: Course[] = []
+  wednesday: Course[] = []
+  thursday: Course[] = []
+
   didSelectCourse: boolean = false
 
   constructor(private _title: Title) {
     this._title.setTitle('CUFE - Schedule')
   }
 
-  addCourse(course: string) {
-    this.currentCoursesLectures = []
-    this.currentCoursesTutorials = []
+  selectLecture(event: any) {
+    this.selectedCourseLecture = null
+
+    let id = event.target.options[event.target.selectedIndex].id
+    if (id) {
+      this.selectedCourseLecture = this.currentCourseLectures.find(
+        (value: Course, index: number): boolean => {
+          if (value.id === id) {
+            return true
+          }
+          return false
+        }
+      )
+    }
+  }
+
+  selectTutorial(event) {
+    this.selectedCourseTutorial = null
+
+    let id = event.target.options[event.target.selectedIndex].id
+    if (id) {
+      this.selectedCourseTutorial = this.currentCourseTutorials.find(
+        (value: Course, index: number): boolean => {
+          if (value.id === id) {
+            return true
+          }
+          return false
+        }
+      )
+    }
+  }
+
+  showTime(course: string) {
+    this.currentCourseLectures = []
+    this.currentCourseTutorials = []
 
     let code = course.split('-')[0]
     this.currentCourses = this.coursesGroupedByCode[code.trim()]
-    console.log(course)
     this.currentCourses.forEach(course => {
       if (course.type === 'Lecture')
-        return this.currentCoursesLectures.push(course)
+        return this.currentCourseLectures.push(course)
       if (course.type === 'Tutorial')
-        return this.currentCoursesTutorials.push(course)
+        return this.currentCourseTutorials.push(course)
     })
 
-    console.log(this.currentCoursesLectures, 'lectures')
-    console.log(this.currentCoursesTutorials, 'tuts')
-
     this.didSelectCourse = true
+  }
+
+  addCourse() {
+    if (this.selectedCourseLecture && this.selectedCourseTutorial) {
+      this[this.selectedCourseLecture.day.toLowerCase()].push(
+        this.selectedCourseLecture
+      )
+      this[this.selectedCourseTutorial.day.toLowerCase()].push(
+        this.selectedCourseTutorial
+      )
+    }
   }
 
   renameKeys(obj, newKeys) {
