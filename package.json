@@ -2,6 +2,10 @@
   "name": "cufe-schedule",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": "6.11.x",
+    "npm": "3.10.x"
+  },
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
