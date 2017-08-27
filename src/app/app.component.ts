@@ -11,7 +11,6 @@ import * as _ from 'lodash'
 export class AppComponent implements OnInit {
   courses: any[]
   uniqueCourses: any[] = []
-  sameCourses: any[] // this contains lectures and tutorials of the same subject
   coursesGroupedByCode: any[] = []
   currentCourses: Course[]
   currentCourseLectures: Course[]
@@ -25,6 +24,10 @@ export class AppComponent implements OnInit {
   tuesday: Course[] = []
   wednesday: Course[] = []
   thursday: Course[] = []
+
+
+  halfDay = ['8:00','8:50','9:00','9:50','10:00','10:50','11:00','11:50','12:00','12:50','1:00','1:50','2:00','2:50','3:00','3:50','4:00','4:50','5:00','5:50','6:00','6:50','7:00','7:50','8:00','8:50','9:00','9:50']
+  error: string
 
   didSelectCourse: boolean = false
 
@@ -65,6 +68,11 @@ export class AppComponent implements OnInit {
   }
 
   showTime(course: string) {
+    if (course.trim() === `Please Select a course...`) {
+      this.error = `Please Select a proper Course to display the Lectures and Tutorials`
+      return
+    }
+    this.error = ``
     this.currentCourseLectures = []
     this.currentCourseTutorials = []
 
@@ -80,14 +88,26 @@ export class AppComponent implements OnInit {
     this.didSelectCourse = true
   }
 
+  removeCourse(event) {
+    console.log(event)
+  }
+
   addCourse() {
-    if (this.selectedCourseLecture && this.selectedCourseTutorial) {
+    if (
+      this.selectedCourseLecture &&
+      (this.selectedCourseTutorial || !this.currentCourseTutorials.length)
+    ) {
       this[this.selectedCourseLecture.day.toLowerCase()].push(
         this.selectedCourseLecture
       )
-      this[this.selectedCourseTutorial.day.toLowerCase()].push(
-        this.selectedCourseTutorial
-      )
+      if (this.selectedCourseTutorial) {
+        this[this.selectedCourseTutorial.day.toLowerCase()].push(
+          this.selectedCourseTutorial
+        )
+      }
+      this.error = ''
+    } else {
+      this.error = 'Please Choose a proper Lecture or Tutorial'
     }
   }
 
