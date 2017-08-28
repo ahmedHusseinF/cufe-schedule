@@ -14,7 +14,7 @@
 
     <div class="col-sm text-center" *ngIf="didSelectCourse">
       <select class="custom-select" (change)="selectLecture($event)">
-        <option> Please Choose a Lecture... </option>  
+        <option> Please Choose a Lecture... </option>
         <option *ngFor="let lecture of currentCourseLectures" [id]="lecture.id">{{lecture?.day}} - {{lecture?.from}} / {{lecture?.to}} - group {{lecture?.group}}</option>
       </select>
     </div>
@@ -42,37 +42,37 @@
   </div>
   <div class="row">
     <div class="col-sm text-center">
-      <span *ngFor="let course of saturday" style="background-color:green;color:whitesmoke" (dblclick)="removeCourse($event)">
+      <span *ngFor="let course of saturday" [id]="course.id" class="course-span" (dblclick)="removeCourse($event)">
         {{course?.code}} - {{course?.type}} - {{course?.from}}/{{course?.to}}
         <br><br>
       </span>
     </div>
     <div class="col-sm text-center">
-      <span *ngFor="let course of sunday" style="background-color:green;color:whitesmoke" (dblclick)="removeCourse($event)">
+      <span *ngFor="let course of sunday" [id]="course.id" class="course-span" (dblclick)="removeCourse($event)">
         {{course?.code}} - {{course?.type}} - {{course?.from}}/{{course?.to}}
         <br><br>
       </span>
     </div>
     <div class="col-sm text-center">
-      <span *ngFor="let course of monday" style="background-color:green;color:whitesmoke" (dblclick)="removeCourse($event)">
+      <span *ngFor="let course of monday" [id]="course.id" class="course-span" (dblclick)="removeCourse($event)">
         {{course?.code}} - {{course?.type}} - {{course?.from}}/{{course?.to}}
         <br><br>
       </span>
     </div>
     <div class="col-sm text-center">
-      <span *ngFor="let course of tuesday" style="background-color:green;color:whitesmoke" (dblclick)="removeCourse($event)">
+      <span *ngFor="let course of tuesday" [id]="course.id" class="course-span" (dblclick)="removeCourse($event)">
         {{course?.code}} - {{course?.type}} - {{course?.from}}/{{course?.to}}
         <br><br>
       </span>
     </div>
     <div class="col-sm text-center">
-      <span *ngFor="let course of wednesday" style="background-color:green;color:whitesmoke" (dblclick)="removeCourse($event)">
+      <span *ngFor="let course of wednesday" [id]="course.id" class="course-span" (dblclick)="removeCourse($event)">
         {{course?.code}} - {{course?.type}} - {{course?.from}}/{{course?.to}}
         <br><br>
       </span>
     </div>
     <div class="col-sm text-center">
-      <span *ngFor="let course of thursday" style="background-color:green;color:whitesmoke" (dblclick)="removeCourse($event)">
+      <span *ngFor="let course of thursday" [id]="course.id" class="course-span" (dblclick)="removeCourse($event)">
         {{course?.code}} - {{course?.type}} - {{course?.from}}/{{course?.to}}
         <br><br>
       </span>
@@ -81,6 +81,6 @@
 </div>
 <footer class="footer">
   <div class="container">
-    <span class="text-muted">Go help and make a pull request for me at <a href="https://github.com/ahmedHusseinF/cufe-schedule">github</a></span>
+    <span class="text-muted">Go help and make a pull request for me at <a href="https://github.com/ahmedHusseinF/cufe-schedule">github</a>, to remove a course from the table double click on the lecture of the course</span>
   </div>
 </footer>

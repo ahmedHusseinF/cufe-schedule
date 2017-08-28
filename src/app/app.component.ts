@@ -19,6 +19,8 @@ export class AppComponent implements OnInit {
   selectedCourseLecture: any;
   selectedCourseTutorial: any;
 
+  timeTable: Course[] = [];
+
   saturday: Course[] = [];
   sunday: Course[] = [];
   monday: Course[] = [];
@@ -102,6 +104,10 @@ export class AppComponent implements OnInit {
       return;
     }
     this.error = ``;
+
+    this.selectedCourseLecture = null;
+    this.selectedCourseTutorial = null;
+
     this.currentCourseLectures = [];
     this.currentCourseTutorials = [];
 
@@ -117,8 +123,49 @@ export class AppComponent implements OnInit {
     this.didSelectCourse = true;
   }
 
+  getLectureById(id: number) {
+    return this.courses.find((course): boolean => {
+      return course.id === id;
+    });
+  }
+
   removeCourse(event) {
-    console.log(event);
+    let removedLecture: Course = this.getLectureById(event.target.id);
+    if (removedLecture.type === 'Lecture') {
+      let lectureIndex = this[
+        removedLecture.day.toLowerCase()
+      ].findIndex(course => {
+        return course.id === removedLecture.id;
+      });
+
+      let removedTutorial = this.timeTable.find((course): boolean => {
+        return course.code === removedLecture.code;
+      });
+
+      let tutorialIndex = this[
+        removedTutorial.day.toLowerCase()
+      ].findIndex(course => {
+        return course.id === removedTutorial.id;
+      });
+
+      if (lectureIndex !== -1) {
+        this[removedLecture.day.toLowerCase()].splice(lectureIndex, 1);
+        this.timeTable = this.timeTable.filter(course => {
+          return course.id !== removedLecture.id;
+        });
+      }
+
+      if (tutorialIndex !== -1) {
+        this[removedTutorial.day.toLowerCase()].splice(tutorialIndex, 1);
+        this.timeTable = this.timeTable.filter(course => {
+          return course.id !== removedTutorial.id;
+        });
+      }
+
+      this.error = '';
+    } else {
+      this.error = `Please select the lecture to remove the whole course`;
+    }
   }
 
   addCourse() {
@@ -126,15 +173,26 @@ export class AppComponent implements OnInit {
       this.selectedCourseLecture &&
       (this.selectedCourseTutorial || !this.currentCourseTutorials.length)
     ) {
-      this[this.selectedCourseLecture.day.toLowerCase()].push(
-        this.selectedCourseLecture
-      );
-      if (this.selectedCourseTutorial) {
-        this[this.selectedCourseTutorial.day.toLowerCase()].push(
-          this.selectedCourseTutorial
+      if (
+        !this.timeTable.find((course, index) => {
+          return course.code === this.selectedCourseLecture.code;
+        })
+      ) {
+        this[this.selectedCourseLecture.day.toLowerCase()].push(
+          this.selectedCourseLecture
         );
+        this.timeTable.push(this.selectedCourseLecture);
+
+        if (this.selectedCourseTutorial) {
+          this[this.selectedCourseTutorial.day.toLowerCase()].push(
+            this.selectedCourseTutorial
+          );
+          this.timeTable.push(this.selectedCourseTutorial);
+        }
+        this.error = '';
+      } else {
+        this.error = 'Please Select another Course, you already chose that.';
       }
-      this.error = '';
     } else {
       this.error = 'Please Choose a proper Lecture or Tutorial';
     }
