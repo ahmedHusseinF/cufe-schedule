@@ -19,7 +19,7 @@
       </select>
     </div>
 
-    <div class="col-sm text-center" *ngIf="didSelectCourse">
+    <div class="col-sm text-center" *ngIf="didSelectCourse && currentCourseTutorials.length">
       <select class="custom-select" (change)="selectTutorial($event)">
         <option> Please Select a Tutorial... </option>
         <option *ngFor="let tutorial of currentCourseTutorials" [id]="tutorial.id">{{tutorial?.day}} - {{tutorial?.from}} / {{tutorial?.to}} - group {{tutorial?.group}}</option>
@@ -80,7 +80,8 @@
   </div>
 </div>
 <footer class="footer">
-  <div class="container">
-    <span class="text-muted">Go help and make a pull request for me at <a href="https://github.com/ahmedHusseinF/cufe-schedule">github</a>, to remove a course from the table double click on the lecture of the course</span>
-  </div>
+    <div class="text-center">
+      <p class="text-muted">Go help and make a pull request for me at <a href="https://github.com/ahmedHusseinF/cufe-schedule">github</a>, to remove a course from the table double click on the lecture of the course</p>
+    </div>
+  
 </footer>
